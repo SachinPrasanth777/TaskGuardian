@@ -7,3 +7,6 @@ class CreateUserSchema(BaseModel):
 class LoginSchema(BaseModel):
     email: EmailStr
     password: str
+
+class TokenData(BaseModel):
+    email: EmailStr | None = None
