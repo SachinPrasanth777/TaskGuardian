@@ -10,7 +10,6 @@ async def get_current_user(req: Request):
     auth_header = req.headers.get("Authorization")
     if not auth_header:
         raise HTTPException(status_code=403, detail="No token provided")
-
     token = auth_header.split(" ")[1]
     try:
         token_data = read_token(token, secret=db.secret)
