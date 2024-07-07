@@ -1,10 +1,12 @@
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends
 from utilities.database import Database
-from schema.users import CreateUserSchema, LoginSchema
+from schema.users import CreateUserSchema, LoginSchema, VerifyOTPRequest
 from utilities.response import JSONResponse
 from utilities.bcrypt import hash_password, check_password
 from utilities.jwt import create_access_token
 from middleware.authentication import get_current_user
+from mailer.mail import schedule_mail
+from utilities.otp import check_otp
 
 db = Database()
 router = APIRouter()
@@ -20,7 +22,7 @@ async def handleSignUp(user: CreateUserSchema):
     return JSONResponse({"success": True, "message": "User Signed Up Successfully"})
 
 
-@router.post("/login")
+@router.post("/generate-otp")
 async def handleLogin(user: LoginSchema):
     email = db.users.find_one({"email": user.email})
     if not email:
@@ -30,7 +32,15 @@ async def handleLogin(user: LoginSchema):
         raise HTTPException(
             status_code=401, detail="Unauthorized Access/ Mismatched Passwords"
         )
-    access_token = create_access_token({"email": user.email}, secret=db.secret)
+    schedule_mail(user.email)
+    return JSONResponse({"success": True, "message": "OTP sent Successfully"})
+
+
+@router.post("/verify-otp")
+async def verify_otp(data: VerifyOTPRequest):
+    if not check_otp(data.email, data.otp):
+        raise HTTPException(status_code=400, detail="OTP Verification Failed")
+    access_token = create_access_token({"email": data.email}, secret=db.secret)
     return JSONResponse(
         {
             "success": True,

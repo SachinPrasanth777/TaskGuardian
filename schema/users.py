@@ -9,3 +9,8 @@ class CreateUserSchema(BaseModel):
 class LoginSchema(BaseModel):
     email: EmailStr
     password: str
+
+
+class VerifyOTPRequest(BaseModel):
+    email: EmailStr
+    otp: str
