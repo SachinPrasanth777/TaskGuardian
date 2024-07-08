@@ -14,9 +14,13 @@ class Database:
         self.username = os.getenv("USERNAME")
         self.password = os.getenv("PASSWORD")
         self.port = os.getenv("PORT")
+        self.secret_key = os.getenv("SECRET_KEY")
+        self.client_id = os.getenv("CLIENT_ID")
+        self.server_metadata_url = os.getenv("SERVER_META_URL")
         self.client = MongoClient(db_uri)
         self.db = self.client[db_name]
         self.users = self.db.users
+        self.auth = self.db.auth
 
     def __del__(self):
         self.client.close()
