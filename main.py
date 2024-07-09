@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from routes.users.users import router
+from routes.admins.admin import admin_router
 from routes.users.auth import auth_router
 from utilities.response import JSONResponse
 from utilities.database import Database
@@ -18,9 +19,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(router)
-app.include_router(auth_router)
-
+app.include_router(router, prefix="/users")
+app.include_router(auth_router, prefix="/users")
+app.include_router(admin_router, prefix="/admin")
 
 @app.get("/")
 async def index():

@@ -14,3 +14,7 @@ class LoginSchema(BaseModel):
 class VerifyOTPRequest(BaseModel):
     email: EmailStr
     otp: str
+
+class AdminUserSchema(BaseModel):
+    email: EmailStr
+    password: str
