@@ -65,3 +65,13 @@ async def get_tasks(user: dict = Depends(get_current_user)):
     for task in task_list:
         tasks.append(task)
     return JSONResponse(content=json.loads(json.dumps(tasks, default=str)),media_type="application/json")
+
+@router.get("/all-tasks")
+async def get_all_tasks(user: dict = Depends(get_current_user)):
+    task_list= db.tasks.find({})
+    if not task_list:
+        raise HTTPException(status_code=404, detail="No Tasks Found")
+    tasks=[]
+    for task in task_list:
+        tasks.append(task)
+    return JSONResponse(content=json.loads(json.dumps(tasks, default=str)),media_type="application/json")
