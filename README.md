@@ -94,6 +94,7 @@ Get all the tasks created by the admin
 <img width="1440" alt="Screenshot 2024-07-10 at 3 32 56 PM" src="https://github.com/SachinPrasanth777/TaskGuardian/assets/142246653/e237f226-ddf5-474d-b448-d6674d409aad">
 <img width="1440" alt="Screenshot 2024-07-10 at 3 37 09 PM" src="https://github.com/SachinPrasanth777/TaskGuardian/assets/142246653/03371d61-1f49-42e4-9210-8bd4df8c6796">
 <img width="1440" alt="Screenshot 2024-07-10 at 3 36 52 PM" src="https://github.com/SachinPrasanth777/TaskGuardian/assets/142246653/f1c708e7-18bc-44ac-84ef-a29cdaf72f89">
+<img width="1440" alt="Screenshot 2024-07-10 at 3 43 00 PM" src="https://github.com/SachinPrasanth777/TaskGuardian/assets/142246653/88744154-88c1-46b9-aa44-f8e65aac0195">
 
 
 # How Start the Project?
