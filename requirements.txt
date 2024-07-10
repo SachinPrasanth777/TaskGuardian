@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+bcrypt
+PYjwt
+python-dotenv
+pymongo
+authlib
+itsdangerous
