@@ -7,6 +7,7 @@ from utilities.jwt import create_access_token
 from middleware.authentication import get_current_user
 from mailer.mail import schedule_mail
 from utilities.otp import check_otp
+import json
 
 db = Database()
 router = APIRouter()
@@ -53,3 +54,14 @@ async def verify_otp(data: VerifyOTPRequest):
 @router.get("/user")
 async def upload_details(user: dict = Depends(get_current_user)):
     return JSONResponse({"success": True, "message": "User Fetched", "user": user})
+
+
+@router.get("/tasks")
+async def get_tasks(user: dict = Depends(get_current_user)):
+    task_list= db.tasks.find({"assigned_to": user["email"]})
+    if not task_list:
+        raise HTTPException(status_code=404, detail="No Tasks Found")
+    tasks=[]
+    for task in task_list:
+        tasks.append(task)
+    return JSONResponse(content=json.loads(json.dumps(tasks, default=str)),media_type="application/json")
