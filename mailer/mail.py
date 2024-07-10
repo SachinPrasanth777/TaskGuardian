@@ -25,3 +25,18 @@ def schedule_mail(mail: EmailStr):
             smtp.sendmail(db.username, mail, em.as_string())
     except smtplib.SMTPException:
         return JSONResponse({"success": False, "message": "Failed to Send Email"})
+
+
+def schedule_mail_task(mail: EmailStr):
+    try:
+        em = EmailMessage()
+        em["From"] = db.username
+        em["To"] = mail
+        em["Subject"] = "You are assigned a Task"
+        em.set_content(f"A task has been assigned to you. Please check the task list!")
+        context = ssl.create_default_context(cafile=certifi.where())
+        with smtplib.SMTP_SSL("smtp.gmail.com", db.port, context=context) as smtp:
+            smtp.login(db.username, db.password)
+            smtp.sendmail(db.username, mail, em.as_string())
+    except smtplib.SMTPException:
+        return JSONResponse({"success": False, "message": "Failed to Send Email"})

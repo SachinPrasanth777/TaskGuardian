@@ -22,6 +22,8 @@ class Database:
         self.users = self.db.users
         self.auth = self.db.auth
         self.admins = self.db.admins
+        self.tasks = self.db.tasks
+        self.assignees = self.db.assignees
 
     def __del__(self):
         self.client.close()
