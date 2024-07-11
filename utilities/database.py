@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
-
+import certifi
 import os
 
 load_dotenv()
@@ -17,7 +17,7 @@ class Database:
         self.secret_key = os.getenv("SECRET_KEY")
         self.client_id = os.getenv("CLIENT_ID")
         self.server_metadata_url = os.getenv("SERVER_META_URL")
-        self.client = MongoClient(db_uri)
+        self.client = MongoClient(db_uri, tls=True, tlsCAFile=certifi.where())
         self.db = self.client[db_name]
         self.users = self.db.users
         self.auth = self.db.auth
