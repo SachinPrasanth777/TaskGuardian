@@ -1,4 +1,4 @@
-name: Flask CI
+name: FastAPI CI
 
 on:
   push:
