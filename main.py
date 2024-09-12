@@ -23,6 +23,7 @@ app.include_router(router, prefix="/users")
 app.include_router(auth_router, prefix="/users")
 app.include_router(admin_router, prefix="/admin")
 
+
 @app.get("/")
 async def index():
     return JSONResponse({"success": True, "message": "All Modules loaded successfully"})

@@ -6,3 +6,4 @@ python-dotenv
 pymongo
 authlib
 itsdangerous
+black
