@@ -58,20 +58,27 @@ async def upload_details(user: dict = Depends(get_current_user)):
 
 @router.get("/tasks")
 async def get_tasks(user: dict = Depends(get_current_user)):
-    task_list= db.tasks.find({"assigned_to": user["email"]})
+    task_list = db.tasks.find({"assigned_to": user["email"]})
     if not task_list:
         raise HTTPException(status_code=404, detail="No Tasks Found")
-    tasks=[]
+    tasks = []
     for task in task_list:
         tasks.append(task)
-    return JSONResponse(content=json.loads(json.dumps(tasks, default=str)),media_type="application/json")
+    return JSONResponse(
+        content=json.loads(json.dumps(tasks, default=str)),
+        media_type="application/json",
+    )
+
 
 @router.get("/all-tasks")
 async def get_all_tasks(user: dict = Depends(get_current_user)):
-    task_list= db.tasks.find({})
+    task_list = db.tasks.find({})
     if not task_list:
         raise HTTPException(status_code=404, detail="No Tasks Found")
-    tasks=[]
+    tasks = []
     for task in task_list:
         tasks.append(task)
-    return JSONResponse(content=json.loads(json.dumps(tasks, default=str)),media_type="application/json")
+    return JSONResponse(
+        content=json.loads(json.dumps(tasks, default=str)),
+        media_type="application/json",
+    )
